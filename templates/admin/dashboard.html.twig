@@ -1,0 +1,83 @@
+{# templates/admin/dashboard.html.twig #}
+
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Admin | Sub Shop{% endblock %}
+{% block content_title %}Dashboard{% endblock %}
+
+{% block main %}
+<style>
+
+    .admin-order-link{
+        display: inline-block;
+        margin-bottom: 2em;
+        margin-top: 1em;
+        border: 1px solid;
+        padding: 0.5em;
+        border-radius: 5px;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .admin-order-table{
+        border: 1px solid;
+        padding: 0.5em;
+        border-radius: 5px;
+        margin-top: 2em;
+    }
+    .admin-order-link:hover{
+        background-color: #fff;
+        color: #000;
+    }
+
+    .admin-order-link:active{
+        background-color: #000;
+        color: #fff;
+        transform: translateY(4px);
+    }
+</style>
+
+<section id="main" class="content-body">
+    <p>Choose a menu option from the left to continue.</p>
+
+    {% for order in orders %}
+    <div>
+        <p><strong>Order ID:</strong> {{ order.id }}
+            <br>
+            <strong>Customer Name:</strong> {{ order.user }}
+            <br>
+            <strong>Order Placed On:</strong> {{ order.createdAt | date('n/j/y g:ia') }}
+            <br>
+            {% if order.startedAt is not empty %}
+            <strong>Order Started On:</strong> {{ order.startedAt | date('n/j/y g:ia') }}
+            <br>
+            {% endif %}
+            <strong>Order Status:</strong> {{ order.status }}
+        </p>
+        <div class="admin-order-table">
+            <table class="table datagrid">
+                <thead class="order-head">
+                    <th class="header-for-field-number text-" data-column="quantity" dir="ltr"><span><strong>Quantity</strong></span></th>
+                    <th class="header-for-field-number text-" data-column="item" dir="ltr"><span><strong>Item</strong></span></th>
+                    <th class="header-for-field-number text-" data-column="price" dir="ltr"><span><strong>Price</strong></span></th>
+                </thead>
+                <tbody class="order-body">
+                    {% for orderItem in order.orderItems %}
+                    <tr>
+                        <td>{{ orderItem.Quantity }}</td>
+                        <td>{{ orderItem.Menu.name }}</td>
+                        <td>${{ orderItem.Quantity * orderItem.Price | number_format(2,'.', ',') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if order.startedAt is empty %}
+            <a class="admin-order-link" href="{{path(name = 'admin_order_start', parameters = {id: order.id})}}">Start</a>
+        {% endif %}
+        {% if order.startedAt is not empty and order.completedAt is empty %}
+           <a class="admin-order-link" href="{{path(name = 'admin_order_complete', parameters = {id: order.id})}}">Complete</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

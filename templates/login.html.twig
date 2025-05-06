@@ -1,0 +1,71 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block body %}
+<div class="login-page">
+    <div class="login-form-wrapper">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.userIdentifier }},
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+        <h2 class="h3 mb-3 font-weight-normal">Please sign in</h2>
+        <label for="username">Username</label>
+        <input aria-required="true" type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
+            autocomplete="username" required autofocus>
+        <label for="password">Password</label>
+        <input aria-required="true" type="password" name="_password" id="password" class="form-control"
+            autocomplete="current-password" required>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+
+            <!-- OR Divider -->
+            <div class="or-divider">
+              <span>or</span>
+            </div>
+
+            <!-- Label above Sign Up Button -->
+            <p class="signup-label" style="text-align: center; margin-bottom: 0.5rem;">
+                sign up for the full experience
+            </p>
+
+            <!-- New Sign Up Button using the same styling as Sign In -->
+            <button class="btn btn-lg btn-primary" type="button" onclick="window.location.href='{{ path('app_register') }}'">
+                Sign Up
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+  // When the page loads, wait 2000 ms (2 seconds),
+  // then fade out the splash screen smoothly and fade in the main content.
+  window.addEventListener("load", function() {
+    setTimeout(function() {
+      const splash = document.getElementById("splash-screen");
+      splash.style.opacity = "0";
+      // After the fade-out (0.5s), hide the splash screen and show main content.
+      setTimeout(function() {
+        splash.style.display = "none";
+        document.getElementById("main-content").style.opacity = "1";
+      }, 500);
+    }, 2000);
+  });
+</script>
+
+{% endblock %}

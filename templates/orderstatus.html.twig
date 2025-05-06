@@ -1,0 +1,26 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Order Status - Jake and Amy's Sub Shop{% endblock %}
+
+{% block page_title %}Track Your Order{% endblock %}
+{% block body_tags %} class="order-status-page"{% endblock %}
+
+{% block body %}
+    <div class="order-status-container">
+        <div class="order-status-box">
+            <p><strong>Order Number:</strong> #{#{ order_number }#}</p>
+            <p><strong>Status:</strong> <span class="order-status">{#{ order_status }#}</span></p>
+            <p><strong>Estimated Delivery:</strong> {#{ estimated_delivery }#} minutes</p>
+        </div>
+
+        <button class="order-btn" onclick="refreshStatus()">Refresh Status</button>
+    </div>
+
+    <script>
+        function refreshStatus() {
+            const statuses = ["Preparing", "Out for Delivery", "Delivered"];
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            document.querySelector(".order-status").textContent = randomStatus;
+        }
+    </script>
+{% endblock %}

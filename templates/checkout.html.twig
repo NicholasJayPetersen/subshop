@@ -1,0 +1,58 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Checkout - Jake & Amy's Sub Shop{% endblock %}
+
+{% block page_title %}Checkout{% endblock %}
+{% block body_tags %} class="checkout-page"{% endblock %}
+
+{% block body %}
+    <div class="checkout-container">
+        <div id="order-summary">
+        <table>
+            <thead>
+                <th>Quantity</th>
+                <th>Item</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                {% for orderItem in cart.orderItems %}
+                <tr>
+                    <td>{{ orderItem.Quantity }}</td>
+                    <td>{{ orderItem.Menu.name }}</td>
+                    <td>{{ orderItem.Quantity * orderItem.Price | number_format(2,'.', ',') }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+        </div>
+
+        <div class="total">
+            <div><strong>Subtotal: ${{ cart.totalPrice | number_format(2,'.', ',') }}</strong></div>
+            <div><strong>Tax: ${{ (cart.totalPrice * 0.06) | number_format(2,'.', ',') }}</strong></div>
+            <div><strong>Total: $<span id="total-price">{{ (cart.totalPrice * 1.06) | number_format(2,'.', ',') }}</span></strong></div>
+        </div>
+
+        <div class="customer-info">
+            <label for="customer-name">Name:</label>
+            <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+        </div>
+
+        <button onclick="window.location.href='{{ path("app_frontpage") }}'">Back to Home</button>
+        <button id="order-btn" onclick="window.location.href='{{ path("app_process") }}'">Confirm & Place Order</button>
+
+        <p class="restaurant-info">
+            Pickup Location: TBD
+        </p>
+    </div>
+
+    <div id="order-confirmation" class="hidden">
+        <p>Your order has been placed! 🚖</p>
+    </div>
+
+    <script src="{{ asset('script.js') }}"></script>
+{% endblock %}

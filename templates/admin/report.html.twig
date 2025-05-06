@@ -1,0 +1,28 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block page_title %}Report | Sub Shop{% endblock %}
+{% block content_title %}Report{% endblock %}
+
+{% block main %}
+<div class="main-content">
+    <p><strong>Total Sandwiches Sold:</strong> {{ totalOrders }}</p>
+    <p><strong>Total Revenue Collected:</strong> ${{ totalRevenue|number_format(2, '.', ',') }}</p>
+
+    <h3>Sandwich Breakdown</h3>
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Sandwich Name</th>
+                <th>Quantity Sold</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in sandwichBreakdown %}
+                <tr>
+                    <td>{{ row.sandwich_name }}</td>
+                    <td>{{ row.quantity_sold }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

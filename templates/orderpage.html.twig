@@ -1,0 +1,105 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Order Page - Jake and Amys Sub shop{% endblock %}
+
+{% block page_title%}Jake and Amy Order Page{% endblock %}
+{% block body_tags %} class="orderpage"{% endblock %}
+
+
+{% block body %}
+    <div class="order-body">
+
+        <h2>Place Your Order Here</h2>
+
+        <div class="checker-bar"></div>
+
+        <h2>Sandwiches: Try one of our delicious sandwiches today served on fresh-baked sub rolls with your choice of toppings.</h2>
+
+        <div class="menu-images">
+            <figure class="button"><img src="images/the-brooklyn-classic.webp" alt="brooklyn"><figcaption>Brooklyn Classic</figcaption></Figure>
+            <figure class="button"><img src="images/midtown-club.webp" alt="club"><figcaption>Midtown Club</figcaption></Figure>
+            <figure class="button"><img src="images/amys-italian-supreme.webp" alt="italian"><figcaption>Italian Supreme</figcaption></Figure>
+            <figure class="button"><img src="images/jakes-philly-steak.webp" alt="philly"><figcaption>Jake's Philly Steak</figcaption></Figure>
+        </div>
+
+        <div class="menu-images">
+            <figure class="button"><img src="images/pizza-sub.webp" alt="pizza"><figcaption>Pizza Sub</figcaption></Figure>
+            <figure class="button"><img src="images/captains-catch.webp" alt="fish-sandwich"><figcaption>Captain's Catch</figcaption></Figure>
+            <figure class="button"><img src="images/garden-fresh.webp" alt="veggie-sandwich"><figcaption>Garden Fresh</figcaption></Figure>
+            <figure class="button"><img src="images/smoky-chicken-melt.webp" alt="chicken-melt"><figcaption>Smokey Chicken Melt</figcaption></Figure>
+        </div>
+        <ul>
+            {% for sandwich in sandwiches %}
+                <li class="sandwiches"><strong>{{ sandwich.name }}</strong> - ${{ sandwich.price }}<br>{{ sandwich.description }}
+                {% if sandwich.isAvailable %}
+                <a href= "{{ path('app_order_add', {'id': sandwich.id}) }}" class="order-button">Add To Cart</a>
+            {% else %}
+                <span class="order-button">Not available</span>
+            {% endif %}
+                </li>
+
+            {% endfor %}
+            </div>
+
+
+        </ul>
+    </div>
+
+    <div class="checker-bar"></div>
+
+    <h2>Sides: Add a delicious sides to your order.</h2>
+
+    <ul>
+        <div class="menu-images">
+            <figure class="button"><img src="images/crinkle-cut-fries.webp" alt="fries"><figcaption>Crinkle Cut Fries</figcaption></Figure>
+            <figure class="button"><img src="images/garlic-parm-tots.webp" alt="tots"><figcaption>Garlic Parm Tots</figcaption></Figure>
+            <figure class="button"><img src="images/loaded-nacho-fries.webp" alt="nachos"><figcaption>Loaded Nacho Fries</figcaption></Figure>
+            <figure class="button"><img src="images/coleslaw.webp" alt="coleslaw"><figcaption>Coleslaw</figcaption></Figure>
+            <figure class="button"><img src="images/classic-mac-and-cheese.webp" alt="macNcheese"><figcaption>Mac and Cheese</figcaption></Figure>
+            <figure class="button"><img src="images/mozzarella-sticks.webp" alt="cheese-sticks"><figcaption>Mozzarella Sticks</figcaption></Figure>
+        </div>
+        {% for side in sides %}
+
+            <li class="sides"><strong>{{ side.name }}</strong> - ${{ side.price }}
+            {% if side.isAvailable %}
+             <a href="{{ path('app_order_add', {'id': side.id}) }}" class="order-button">Add To Cart</a>
+             {% else %}
+            <span class="order-button">Not available</span>
+            {% endif %}
+            </li>
+
+        {% endfor %}
+    </ul>
+
+    <div class="checker-bar"></div>
+    <h2>Beverages: Quanch your thirst with one of our beverages.</h2>
+
+    <ul>
+         <div class="menu-images">
+            <figure class="button"><img src="images/sodas.jpg" alt="soda"><figcaption>Fountain Sodas</figcaption></Figure>
+            <figure class="button"><img src="images/Tea.jpeg" alt="tea"><figcaption>Iced Tea</figcaption></Figure>
+            <figure class="button"><img src="images/Lemonade.jpeg" alt="lemonade"><figcaption>Lemonade</figcaption></Figure>
+            <figure class="button"><img src="images/bottle-water.jpg" alt="water-bottle"><figcaption>Bottled Water</figcaption></Figure>
+            <figure class="button"><img src="images/IceCoff.jpeg" alt="coffee"><figcaption>Cold Brew Coffee</figcaption></Figure>
+        </div>
+        {% for beverage in beverages %}
+            <li class="drinks"><strong>{{ beverage.name }}</strong> - ${{ beverage.price }}<br>{{ beverage.description }}
+            {% if beverage.isAvailable %}
+            <a href="{{ path('app_order_add', {'id': beverage.id}) }}" class="order-button">Add To Cart</a>
+            {% else %}
+            <span class="order-button">Not available</span>
+            {% endif %}
+            </li>
+
+        {% endfor %}
+    </ul>
+
+        <div class="button-container">
+         <button class="checkout-button" onclick="window.location.href='{{ path('app_checkout') }}'">Check Out Here</button>
+        </div>
+ </div>
+
+
+{% endblock %}
+
+

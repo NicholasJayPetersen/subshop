@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style-orderpages.css') }}">
+
+    </head>
+    <body {% block body_tags %}{% endblock %}>
+        <header class="page-header">
+            <div class="header-container">
+                <div class="site-name" role="link"><a href="{{ path('app_frontpage') }}"><img alt="Jake and Amy's Sub Shop" src="{{ asset('images/jake-and-amys-logo.webp') }}"></a></div>
+                <nav class="main-navigation">
+                    <a class="link" role="button" href="{{ path('app_aboutpage') }}">About Us</a>
+                    <a class="link" role="button" href="{{ path('app_menu') }}">Menu</a>
+                    {% if app.user.username is defined %}
+                    <!--Add users name when logged in-->
+                    {%if app.user.isEmployee() %}
+                    <a class="link" role="button" href="{{ path('admin') }}">Admin</a>
+                    {% endif %}
+                    <a class="link" role="button" href="{{ logout_path() }}">Log out</a>
+                    {% else %}
+                    <a class="link" role="button" href="{{ path('app_login') }}">Log in</a>
+                    {% endif %}
+                    <a class="link" href="{{ path('app_orderpage') }}">Order Now</a>
+                </nav>
+            </div>
+        </header>
+            {# NOTIFICATION #}
+            {% for label, messages in app.flashes(['error', 'warning', 'notice']) %}
+            {% for message in messages %}
+            <div class="flash-message flash-{{ label }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endfor %}
+        <h1>{% block page_title %}ADD TITLE TO PAGE TEMPLATE{% endblock %}</h1>
+        <div class="main-content">
+            {# DON'T PUT ANYTHING IN BETWEEN THIS BLOCK BODY #}
+            {% block body %}{% endblock %}
+        </div>
+        <footer class="page-footer">
+            <div class="footer-container">
+                <div class="site-logo-footer" role="link"><a href="{{ path('app_frontpage') }}"><img alt="Jake and Amy's Sub Shop" src="{{ asset('images/jake-and-amys-logo.webp') }}" width="75" height="75"></a></div>
+                <nav class="footer-naviagtion">
+                    <a class="footer-link" role="button" href="{{ path('app_aboutpage') }}">About Us</a>
+                    <a class="footer-link" role="button" href="{{ path('app_menu') }}">Menu</a>
+                    <a class="footer-link" role="button" href="{{ path('app_register') }}">Create An Account</a>
+                </nav>
+            </div>
+        </footer>
+    </body>
+</html>

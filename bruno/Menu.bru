@@ -1,0 +1,22 @@
+meta {
+  name: Menu
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{hostname}}/api/menu
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 200
+  res.body: isJson
+  res.body.data[0].id: isDefined
+  res.body.data[0].name: isDefined
+  res.body.data[0].price: isDefined
+  res.body.data[0].category: isDefined
+  res.body.data[0].isAvailable: isDefined
+  res.body.data[0].description: isDefined
+}

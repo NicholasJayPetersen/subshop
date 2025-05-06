@@ -1,0 +1,65 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Jake and Amy's Sub Shop{% endblock %}
+
+{% block page_title %} {% endblock %}
+{% block body_tags %} class="frontpage"{% endblock %}
+
+{% block body %}
+    <div class="frontpage">
+        <div id="splash-screen">
+            <img src="{{ asset('images/jake-and-amys-logo.webp') }}" alt="Jake & Amy's Logo" class="splash-logo"/>
+        </div>
+
+        <div id="main-content" class="frontpage-menu-items">
+            <div class="frontpage-menu-images" role="menu">
+                <div class="subs">
+                    <a class="fade-wrap" role="menuitem" href="{{ path('app_menu') }}">
+                        <img class="f3" alt="Sub Images" src="{{ asset('images/pizza-sub.webp') }}">
+                        <img class="f2" alt="Sub Images" src="{{ asset('images/the-brooklyn-classic.webp') }}">
+                        <img class="f1" alt="Sub Images" src="{{ asset('images/jakes-philly-steak.webp') }}">
+                    </a>
+                        <div class="container-sub">
+                            <a class="link-front" role="button" href="{{ path('app_menu') }}"><strong>Subs</strong></a>
+                        </div>
+                </div>
+                <div class="sides">
+                    <a class="fade-wrap" role="menuitem" href="{{ path('app_menu') }}">
+                        <img class="f3" alt="Side Images" src="{{ asset('images/crinkle-cut-fries.webp') }}">
+                        <img class="f2" alt="Side Images" src="{{ asset('images/classic-mac-and-cheese.webp') }}">
+                        <img class="f1" alt="Side Images" src="{{ asset('images/garlic-parm-tots.webp') }}">
+                    </a>
+                    <div class="container-side">
+                            <a class="link-front" role="button" href="{{ path('app_menu') }}"><strong>Sides</strong></a>
+                        </div>
+                </div>
+                <div class="drinks">
+                    <a class="fade-wrap" role="menuitem" href="{{ path('app_menu') }}">
+                        <img class="f3" alt="Drink Images" src="{{ asset('images/pop.webp') }}">
+                        <img class="f2" alt="Drink Images" src="{{ asset('images/coffee.webp') }}">
+                        <img class="f1" alt="Drink Images" src="{{ asset('images/water.webp') }}">
+                    </a>
+                        <div class="container-drink">
+                            <a class="link-front" role="button" href="{{ path('app_menu') }}"><strong>Drinks</strong></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // When the page loads, wait 1000 ms (1 seconds),
+        // then fade out the splash screen smoothly and fade in the main content.
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                const splash = document.getElementById("splash-screen");
+                splash.style.opacity = "0";
+                // After the fade-out (0.5s), hide the splash screen and show main content.
+                setTimeout(function () {
+                    splash.style.display = "none";
+                    document.getElementById("main-content").style.opacity = "1";
+                }, 500);
+            }, 1000);
+        });
+    </script>
+{% endblock %}

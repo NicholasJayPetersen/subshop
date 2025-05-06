@@ -1,0 +1,12 @@
+{% extends '@EasyAdmin/crud/edit.html.twig' %}
+
+{% block page_actions %}
+    <a href="{{ ea_url()
+        .setController('App\\Controller\\Admin\\MenuCrudController')
+        .setAction('index')
+    }}" class="btn btn-secondary">
+        ← Back to Menu
+    </a>
+    {{ parent() }}
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Menu - Jake and Amy's Sub Shop{% endblock %}
+
+{% block page_title %}Jake and Amy Menu{% endblock %}
+{% block body_tags %} class="menupage"{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="checker-bar"></div>
+<h2>Sandwiches:</h2>
+<ul class="menustuff">
+    {% for item in sandwiches %}
+        <li class="menu-item">
+            <h3>{{ item.name }}</h3>
+            <img src="{{ asset('images/' ~ item.image) }}" alt="{{ item.name }}">
+            <p class="price">${{ item.price }}</p>
+            <p class="ingredients">{{ item.description }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="checker-bar"></div>
+<h2>Sides:</h2>
+<ul class="menustuff">
+    {% for item in sides %}
+        <li class="menu-item">
+            <h3>{{ item.name }}</h3>
+            <img src="{{ asset('images/' ~ item.image) }}" alt="{{ item.name }}">
+            <p class="price">${{ item.price }}</p>
+            <p class="ingredients">{{ item.description }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="checker-bar"></div>
+<h2>Beverages:</h2>
+<ul class="menustuff">
+    {% for item in beverages %}
+        <li class="menu-item">
+            <h3>{{ item.name }}</h3>
+            <img src="{{ asset('images/' ~ item.image) }}" alt="{{ item.name }}">
+            <p class="price">${{ item.price }}</p>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+

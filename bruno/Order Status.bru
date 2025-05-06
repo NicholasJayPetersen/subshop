@@ -1,0 +1,20 @@
+meta {
+  name: Order Status
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{hostname}}/api/order-status
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 200
+  res.body: isJson
+  res.body.error: isUndefined
+  res.body.data: isJson
+  res.body.data.id: isDefined
+  res.body.data.status: isDefined
+}

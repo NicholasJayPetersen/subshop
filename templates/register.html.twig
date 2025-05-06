@@ -1,0 +1,39 @@
+{% extends 'app.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block page_title %}{% endblock %}
+{% block body_tags %} class="register-page"{% endblock %}
+
+{% block body %}
+<div class="registration-wrapper">
+  <div class="registration-container">
+    {# Decorative Checker Bar #}
+    <div class="checker-bar"></div>
+
+    {# Header Section #}
+    <header class="registration-header">
+      <h1>Become part of the family.</h1>
+    </header>
+
+    {# Optional Subtitle / Instructions #}
+    <p class="registration-subtitle">
+      Create your account here to access a world outstanding subs.
+    </p>
+
+    {# Registration Form #}
+    <div class="registration-form-wrapper">
+      {{ form_errors(registrationForm) }}
+      {{ form_start(registrationForm) }}
+         {{ form_row(registrationForm.username) }}
+         {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
+         {{ form_row(registrationForm.firstName) }}
+         {{ form_row(registrationForm.lastName) }}
+         {{ form_row(registrationForm.email) }}
+         {{ form_row(registrationForm.phone) }}
+         {{ form_row(registrationForm.agreeTerms) }}
+         <button type="submit" class="btn register-button">Register</button>
+      {{ form_end(registrationForm) }}
+    </div>
+  </div>
+</div>
+{% endblock %}
